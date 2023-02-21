@@ -35,7 +35,7 @@ class Queue:
         self.owner = owner
         self.players = []
         self.maxplayers = maxplayers
-        self.time = time
+        self.time = time # queue time
 
     def addPlayer(self, player):
         if (len(self.players) < self.maxplayers):
@@ -61,6 +61,8 @@ class Player:
         self.playerData = valo_api.get_mmr_details_by_name(region=self.region,name=self.name,tag=self.tag,version="v2")
         self.rank = self.playerData.current_data.currenttier
         self.rankString = self.playerData.current_data.currenttierpatched
+        self.discordName = "cosine"
+        self.discordTag = "0616"
 
 def pickColor(rankInt: int):
     colorDict = {3: 0x5D5D5D, 4: 0x5D5D5D, 5: 0x5D5D5D, 6: 0x966B18, 7: 0x966B18, 8: 0x966B18, 9: 0xE1E8E7,  10: 0xE1E8E7,  
