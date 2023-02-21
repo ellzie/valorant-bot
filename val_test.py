@@ -5,17 +5,17 @@ from datetime import datetime
 import threading
 
 # https://stackoverflow.com/a/63625368
-def checkTime():
+def checkTime(userTime):
     # This function runs periodically every 1 second
-    threading.Timer(1, checkTime).start()
+    threading.Timer(1, checkTime,kwargs=userTime).start()
 
     now = datetime.now()
 
     current_time = now.strftime("%I:%M:%S %p")
     print("Current Time =", current_time)
 
-    if(current_time == '01:43:00 PM'):  # check if matches with the desired time
-        testqueue.notifyPlayer()
+    if(current_time == userTime):  # check if matches with the desired time
+        testqueue.notifyPlayers()
         print("done")
 
 
@@ -26,13 +26,14 @@ userMonth = "2"
 userDay = "21"
 userYear = "2023" 
 # these will be defaulted but can be changed by user
-userHour = "11"
-userMinute = "00"
-user12Hour = "AM"
+userHour = "03"
+userMinute = "28"
+user12Hour = "PM"
 # the important bits
-totalUserIn = userMonth + "/" + userDay + "/" + userYear + " " + userHour + ":" + userMinute + " " + user12Hour
+halfUserIn = userHour + ":" + userMinute + ":00 " + user12Hour
+totalUserIn = userMonth + "/" + userDay + "/" + userYear + " " + halfUserIn
 print(totalUserIn)
-fmt = ("%m/%d/%Y %I:%M %p")
+fmt = ("%m/%d/%Y %I:%M:%S %p")
 epochDate = int(time.mktime(time.strptime(totalUserIn, fmt)))
 print(epochDate)
 # we now have a conversion to unix, <t:1676242800:t> is what discord will want in the embed
@@ -41,4 +42,6 @@ print(epochDate)
 # limit should be user defined "I want to duo queue" "I want a 5 stack"
 testqueue = teams.Queue(owner="cosine",time = epochDate, maxplayers=2)
 # queue created with that time
-checkTime()
+testPlayer = teams.Player(region="na",name="cosine",tag=3893)
+testqueue.addPlayer(testPlayer)
+checkTime(halfUserIn)

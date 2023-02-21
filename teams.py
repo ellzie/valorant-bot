@@ -47,6 +47,10 @@ class Queue:
             if (obj.rankInt != None):
                 sum += obj.rankInt
         return sum / len(self.players)
+    
+    def notifyPlayers(self):
+        for x in self.players:
+            print(f"@{x.discordName}#{x.discordTag}, your queue is starting now!")
 
 
 
