@@ -4,19 +4,19 @@ import time
 from datetime import datetime
 import threading
 
-# https://stackoverflow.com/a/63625368
-def checkTime(userTime):
-    # This function runs periodically every 1 second
-    threading.Timer(1, checkTime,kwargs=userTime).start()
-
-    now = datetime.now()
-
-    current_time = now.strftime("%I:%M:%S %p")
-    print("Current Time =", current_time)
-
-    if(current_time == userTime):  # check if matches with the desired time
-        testqueue.notifyPlayers()
-        print("done")
+## https://stackoverflow.com/a/63625368
+#def checkTime(userTime):
+#    # This function runs periodically every 1 second
+#    threading.Timer(1, checkTime(),args=userTime).start()
+#
+#    now = datetime.now()
+#
+#    current_time = now.strftime("%I:%M:%S %p")
+#    print("Current Time =", current_time)
+#
+#    if(current_time == userTime):  # check if matches with the desired time
+#        testqueue.notifyPlayers()
+#        print("done")
 
 
 
@@ -44,4 +44,3 @@ testqueue = teams.Queue(owner="cosine",time = epochDate, maxplayers=2)
 # queue created with that time
 testPlayer = teams.Player(region="na",name="cosine",tag=3893)
 testqueue.addPlayer(testPlayer)
-checkTime(halfUserIn)
